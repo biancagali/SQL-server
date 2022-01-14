@@ -1,0 +1,148 @@
+---É possível criar uma data base pela interface ou pelo comando abaixo
+
+--Criando um base de dados
+create database base
+
+-- Deletando uma base de dados
+drop database base2
+
+-- Subindo a base de dados já fornecida pela microsoft
+
+--Utilizando o SELECT, que funciona como:
+---SELECT coluna1, coluna2
+---FROM tabela
+
+--Selecionando todas as colunas da tabela person.person
+SELECT *
+FROM person.person;
+
+--Selecionando colunas espcificas da tabela person.person
+SELECT FirstName, LastName
+FROM person.person;
+
+-- Selecionando valores distintos
+SELECT DISTINCT FirstName
+FROM person.person;
+
+-- Utilizando o WHERE
+---SELECT coluna(s)
+---FROM tabela
+--- WHERE condição
+
+SELECT *
+FROM person.person
+WHERE LastName = 'miller';
+
+SELECT Name,Weight
+FROM Production.Product
+WHERE Weight >500 and Weight<=700
+
+SELECT *
+FROM HumanResources.Employee
+WHERE MaritalStatus = 'M' and SalariedFlag = 1
+
+-- COUNT: usamos para fazer uma contagem
+--- SELECT COUNT(coluna(s))
+--- FROM tabela
+---- Se quiser fazer uma contagem sem considerar os valores nulos ou destintos usar o DISTINCT
+-----SELECT COUNT(DISTINCT coluna(s)) 
+----- FROM tabela
+
+SELECT count(*)
+FROM person.person;
+
+SELECT count(DISTINCT title)
+FROM person.person
+
+SELECT count(DISTINCT ProductID), count(DISTINCT Size)
+FROM Production.Product
+
+-- TOP: limita a quantidade de valores devolvidos em um SELECT
+
+SELECT TOP 10 *
+FROM person.person
+
+-- ORDER BY: ordena os resultados de um SELECT
+--- SELECT coluna(s)
+--- FROM tabela
+--- ORDER BY coluna1 asc/desc
+
+SELECT *
+FROM person.person
+ORDER BY FirstName asc
+
+SELECT *
+FROM person.person
+ORDER BY FirstName asc , LastName desc
+
+-- ATENÇÃO: A COLUNA DE PARAMETRO DO ORDERBY PRECISA ESTAR INCLUSA NO SELECT
+
+-- BETWEEN: USADO PARA ENCONTRAR UM VALOR ENTRE UM MÍNIMO E MÁXIMO 
+--- WHERE valor BETWEEN minimo AND maximo
+
+SELECT *
+FROM production.product
+WHERE ListPrice between 1000 and 1500
+
+SELECT *
+FROM production.product
+WHERE ListPrice NOT between 1000 and 1500
+
+-- IN: é usado junto ao WHERE para retornar os valores constam (IN) de uma lista de valores
+--- WHERE valor IN(valor1,valor2)
+--- WHERE valor IN(SELECT coluna FROM tabela)
+
+SELECT *
+FROM person.person
+WHERE BusinessEntityID IN (2,7,13);
+
+SELECT *
+FROM person.person
+WHERE BusinessEntityID NOT IN (2,7,13);
+
+--LIKE: procurar um valor que contenha algo, por exemplo, você querer procurar pessoas que o nome começam por "GA"
+--- WHERE nome LIKE 'ga%'
+-- O % nos indica que não importa o que vem depois, no lugar do % pode-se usar o "_" que nesse caso indica que há apenas 1 carcatere a completar.
+
+
+SELECT *
+FROM person.person
+WHERE FirstName LIKE 'Ga%';
+
+SELECT *
+FROM person.person
+WHERE FirstName LIKE '%ga';
+
+SELECT *
+FROM person.person
+WHERE FirstName LIKE '%ga%';
+
+-- Quantos produtos cadastrados no sistema custam mais do que 1500 dolares?
+
+SELECT count( ListPrice)
+FROM Production.Product
+WHERE ListPrice>'1500';
+
+-- Quantas pessoas cadastradas tem um sobrenome que se inicia com a letra P?
+
+SELECT count(LastName)
+FROM Person.Person
+WHERE LastName LIKE ('P%');
+
+-- Em quantas cidades únicas os clientes estao cadastrados?
+SELECT count(DISTINCT City)
+FROM Person.Address;
+
+-- Quais as cidades únicas os clientes estao cadastrados? 
+SELECT DISTINCT City
+FROM Person.Address;
+
+-- Quantos produtos vermelhos tem o preço entre 500 e 1000 dolares?
+SELECT count(*)
+FROM Production.Product
+WHERE Color = 'Red' and ListPrice between 500 and 1000;
+
+-- Quantos produtos cadastrados tem a palavra 'road' no nome?
+SELECT count(Name)
+FROM Production.Product
+WHERE Name LIKE '%road%';
