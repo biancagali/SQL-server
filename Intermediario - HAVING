@@ -1,0 +1,78 @@
+-- FUNÇÕES DE AGREGAÇÃO QUE PODEM SER APLICADAS DIRETAMENTE NO SELECT
+--- SUM: SOMA
+--- MIN: MÍNIMO
+--- MAX: MAXIMO
+--- AVG: MÉDIA
+SELECT SUM(ListPrice)
+FROM Production.Product
+WHERE Name LIKE '%road%';
+
+-- AS: PARA FACILITAR, PODEMOS DAR NOME A COLUNA QUE DEVOLVE O RESULTADO USANDO "AS"
+SELECT SUM(ListPrice) AS 'Resultado'
+FROM Production.Product
+WHERE Name LIKE '%road%';
+
+-- GROUP BY: divide o resultado da sua pesquisa em grupos 
+--- SELECT coluna1, funçãoAgregação(coluna2)
+--- FROM tabela
+--- GROUP BY coluna1
+
+SELECT *
+FROM Sales.SalesOrderDetail;
+
+SELECT SpecialOfferID, sum(UnitPrice) AS 'Soma'
+FROM Sales.SalesOrderDetail
+GROUP BY SpecialOfferID;
+
+SELECT count(ProductID) AS 'Qtde de Vendas'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID;
+
+SELECT FirstName,count(FirstName)
+FROM Person.Person
+GROUP BY FirstName;
+
+SELECT Color, AVG(ListPrice) AS 'Média'
+FROM Production.Product
+WHERE Color = 'Silver'
+GROUP BY Color
+
+-- Quantas pessoas tem o mesmo MiddleName, agrupadas por MiddleName
+SELECT MiddleName, count(MiddleName) AS "Repetições"
+FROM Person.Person
+GROUP BY MiddleName;
+
+-- Qual a quantidade em média que cada produto é vendido na loja
+SELECT ProductID, AVG(OrderQty) AS 'Média de quantidade pedida'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID
+
+-- HAVING: É UM WHERE PARA DADOS JÁ AGRUPADOS, ELE FILTRA DADOS AGRUPADOS PELO GROUP BY 
+--- SELECT coluna(s), funçãoAgergação(coluna)
+--- FROM tabela
+--- GROUP BY coluna
+--- HAVING condicao 
+
+-- DIFERENÇA ENTRE O WHERE E O HAVING:
+--- WHERE: ANTES DOS DADOS SEREM AGRUPADOS
+--- HAVING: DEPOIS DOS DADOS TEREM SIDOS AGRUPADOS
+
+-- Quais nomes no sistema tem uma ocorrência maior que 10 vezes?
+
+SELECT FirstName, count(FirstName) AS 'Ocorências'
+FROM Person.Person
+GROUP BY FirstName
+HAVING count(FirstName)> 10;
+
+-- Quais produtos no total de venda estão entre 162K e 500k
+SELECT ProductID, sum(LineTotal) AS 'Total'
+FROM Sales.SalesOrderDetail
+GROUP BY ProductID
+HAVING sum(LineTotal) between 162000 and 500000.
+
+-- Nomes no sistema que aparecem mais que 10 vezes e onde o título é 'Mr.'
+SELECT FirstName, COUNT(FirstName) AS 'Ocorrencias'
+FROM Person.Person
+WHERE Title = 'Mr.'
+GROUP BY FirstName
+HAVING  COUNT(FirstName)>10
