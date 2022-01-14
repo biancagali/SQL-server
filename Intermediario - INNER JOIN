@@ -1,0 +1,67 @@
+--- INNER JOIN:
+--- CHAVE PRIMÁRIA: IDENTIFICA A TABELA ORIGINAL
+--- CHAVE ESTRANGEIRA SE REFERE A CHAVE DE OUTRA TABELA (NESTA OUTRA TABELA SENDO A IDENFICAÇÃO DA MESMA)
+--- SELECT A.coluna1, A.coluna2, B.coluna1, B.coluna2
+--- FROM Tabela A
+--- INNER JOIN Tabela B ON A.coluna(n) = B.coluna(n)
+
+-- BUSCANDO BusinessEntityID, FirstName, LastName, EmailAdress
+SELECT TOP 5 *
+FROM Person.Person
+
+SELECT TOP 5 *
+FROM Person.EmailAddress;
+
+SELECT P.BusinessEntityID, P.FirstName, P.LastName, E.EmailAddressID
+FROM Person.Person P
+INNER JOIN Person.EmailAddress E  ON  P.BusinessEntityID = E.BusinessEntityID;
+
+-- Buscando Preço, Nome do produto e nome da subcategoria
+
+SELECT TOP 4 *
+FROM Production.Product;
+
+SELECT TOP 4 *
+FROM Production.ProductSubcategory;
+
+SELECT P.ListPrice, P.Name,  S.Name
+FROM Production.Product P
+INNER JOIN Production.ProductSubcategory S ON  P.ProductSubcategoryID= S.ProductSubcategoryID
+
+-- Para juntar duas tabelas INTEIRAS é só no SELECT por * ao inves de especificar as colunas.
+
+SELECT TOP 10 *
+FROM Production.Product P
+INNER JOIN Production.ProductSubcategory S ON  P.ProductSubcategoryID= S.ProductSubcategoryID
+
+--- TIPOS DE JOINS: vamos considerar 2 tabelas, A e B
+
+-- INNER JOIN: retorna apenas os registros que constam tanto em A e tanto em B
+--- SELECT * FROM tabela A  INNER JOIN tabela B ON A.coluna= B.coluna
+
+--	FULL OUTER JOIN: Retorna TODOS os registro de A e B, e quando a coluna no ON é igual, ele uni as colunas, se não preenche com NULL
+--- SELECT * FROM tabela A  FULL OUTER JOIN tabela B ON A.coluna= B.coluna
+
+-- LEFT OUTER JOIN ou LEFT JOIN:  Retorna TODOS os registro de A, e quando a coluna no ON é igual, ele preenche as colunas com os dados de B, se não preenche com NULL
+--- SELECT * FROM tabela A  LEFT OUTER JOIN tabela B ON A.coluna= B.coluna
+
+-- Quais pessoas tem um cartão de crédito cadastrado
+
+SELECT TOP 4 *
+FROM Person.Person
+
+SELECT TOP 4*
+FROM Sales.PersonCreditCard
+
+SELECT *
+FROM Person.Person P 
+LEFT JOIN Sales.PersonCreditCard C ON P.BusinessEntityID = C.BusinessEntityID
+WHERE C.BusinessEntityID IS NOT NULL
+
+-- UNION: combina dois ou mais resultados de um SELECT em um resultado só
+-- SELECT 1
+-- UNION
+-- SELECT 2
+-- Precisa ser a mesma quantidade de colunas e o mesmo tipo de dados, as tabelas não precisam ser a mesma. Os resultados duplicados serão excluídos.
+-- Para não excluir os dados duplicados, usar o UNION ALL
+-- Normalmente é usado em tabelas que não estão normalizadas, ou seja que tem algum tipo de inconcistência
