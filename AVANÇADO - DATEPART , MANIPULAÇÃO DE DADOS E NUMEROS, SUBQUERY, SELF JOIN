@@ -24,3 +24,18 @@ FROM Sales.SalesOrderDetail
 
 SELECT ROUND(UnitPrice/LineTotal,2),UnitPrice/LineTotal
 FROM Sales.SalesOrderDetail
+
+-- SUBQUERY: UM SELECT DENTRO DE UM SELECT
+SELECT Name
+FROM production.product
+WHERE ListPrice > (SELECT AVG(ListPrice) FROM production.produCT)
+
+-- SELF JOIN: FAZER COMPARAÇÕES DENTRO DA MESMA TABELA 
+--SELECT NOME_COLUNA
+--FROM TABELA A, TABELA B
+--WHERE CONDICAO
+
+SELECT A.ContactName,B.Region, B.ContactName, A.Region
+FROM dbo.Customers A, dbo.Customers B
+WHERE A.Region = B.Region
+
