@@ -1,0 +1,26 @@
+-- DATEPART: fu~ção utilizada para extrair uma data em um formato especifico
+--- SELECT coluna(s),DATEPART (formatodadatadesejada, coluna)
+--- FROM tabela
+-- https://docs.microsoft.com/pt-br/sql/t-sql/functions/datepart-transact-sql?view=sql-server-ver15
+
+SELECT DATEPART(month,SellStartDate) AS 'Mês' ,DATEPART(year, SellStartDate) AS 'Ano'
+FROM Production.Product
+
+-- MANIPULAÇÃO DE STRINGS: as strings podem ser manipuladas por diversas funções
+-- https://docs.microsoft.com/pt-br/sql/t-sql/functions/string-functions-transact-sql?view=sql-server-ver15
+
+--Concatenando
+SELECT CONCAT(FirstName, ' ', LastName) AS 'Nome Completo'
+FROM Person.Person
+
+-- Colcoando em Maiúsculo
+SELECT UPPER(CONCAT(FirstName, ' ', LastName)) AS 'Nome Completo'
+FROM Person.Person
+
+- FUNÇÕES MATEMÁTICAS: EXISTEM DIVERSAS FUNÇÕES PARA OPERAÇÕES MATEMÁTICAS
+--- https://docs.microsoft.com/pt-br/sql/t-sql/functions/mathematical-functions-transact-sql?view=sql-server-ver15
+SELECT UnitPrice/LineTotal
+FROM Sales.SalesOrderDetail
+
+SELECT ROUND(UnitPrice/LineTotal,2),UnitPrice/LineTotal
+FROM Sales.SalesOrderDetail
