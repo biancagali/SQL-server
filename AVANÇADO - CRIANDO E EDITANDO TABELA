@@ -1,0 +1,58 @@
+-- CHAVE PRIMARIA: É um valor que identifica unicamente uma linha da tabela, como um índice único para aquele registro.
+-- É definida na criação da tabela.
+--- CREATE TABLE nome_tabela	(
+--- nomeColuna tipoDados PRIMARY KEY
+--- nomeColuna tipoDados ...
+---)
+
+-- CHAVE ESTRANGEIRA: Está na tabela e representa a cave primária de outra tabela
+
+-- CREATE TABLE: Comando que cria uma tabela
+
+--- CREATE TABLE nome_tabela	(
+--- nomeColuna tipoDados restriçãoDaColuna
+--- nomeColuna tipoDados ...
+---)
+
+-- Algumas restrições que podem ser usadas
+---NOT NULL, UNIQUE, PRIMARY KEY , FOREIGN KEY,  CHECK (FORÇA UMA CONDIÇÃO ESPECÍFICA),  DEFAULT (PADRÃO NO CASO DE NULL)	
+
+-- INSERT INTO: Insere linhas e valores em uma tabela
+
+-- INSERIR 1 REGISTRO
+--- INSERT INTO tabela(coluna1, coluna2,...)
+--- VALUES (valor1, valor2, ...)
+
+-- INSERIR MAIS DE 1 REGISTRO
+--- INSERT INTO tabela(coluna1, coluna2,...)
+--- VALUES (valor1, valor2, ...)
+--- VALUES (valor1, valor2, ...)
+--- VALUES (valor1, valor2, ...)
+
+-- INSERINDO VALORES JA EXISTENTES EM OUTRA TABELA
+--- INSERT INTO  tabela(coluna1)
+--- SELECT coluna
+--- FROM TABELA B
+
+--- UPDATES
+-- UPDATE nomeTabela
+-- SET coluna(n)  = novoValorOuCondição
+
+--- É POSSIVEL USAR UM WHERE APÓS O SET, PARA DEFINIR ONDE SERÁ APLICADO O UPDATE
+
+UPDATE dbo.Customers
+SET ContactName = ' '
+WHERE CustomerID LIKE '%A%
+
+-- DELETE: Apaga linhas do banco de dados, se você não definir uma condição entçao a tabela inteira será deletada
+--- DELETE FROM tabela 
+--- WHERE coluna = condição
+
+- ALTER TABLE: Faz uma alteração em  uma tabela já existente
+--ALTER TABLE nomeDaTabela
+--AÇÃO
+
+
+-- Adicionando uma nova coluna
+ALTER TABLE dbo.Custumers
+add ColunaNova numeric
