@@ -76,3 +76,20 @@ FROM Person.Person
 WHERE Title = 'Mr.'
 GROUP BY FirstName
 HAVING  COUNT(FirstName)>10
+
+-- UNION: combina dois ou mais resultados de um SELECT em um resultado só
+-- SELECT 1
+-- UNION
+-- SELECT 2
+-- Precisa ser a mesma quantidade de colunas e o mesmo tipo de dados, as tabelas não precisam ser a mesma. Os resultados duplicados serão excluídos.
+-- Para não excluir os dados duplicados, usar o UNION ALL
+-- Normalmente é usado em tabelas que não estão normalizadas, ou seja que tem algum tipo de inconcistência
+
+SELECT FirstName ,PersonType, Title
+FROM Person.Person
+WHERE FirstName LIKE 'G%'
+UNION
+SELECT FirstName , PersonType, Title
+FROM Person.Person
+WHERE FirstName LIKE 'Y%'
+
